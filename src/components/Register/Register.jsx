@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import React, { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
@@ -10,11 +11,13 @@ const Register = () => {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const auth = getAuth();
+
+  // Register method
   const handleRegister = (event) => {
     event.preventDefault();
     setSuccess("");
     setError("");
-    const displayName = event.target.name.value;
+    const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
 
@@ -29,6 +32,7 @@ const Register = () => {
       return;
     }
 
+    //create user with email methods
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const loggedUser = result.user;
@@ -37,21 +41,35 @@ const Register = () => {
         event.target.reset();
         setSuccess("Registration Successfully!!!");
         sendVerificationEmail(loggedUser);
+        updateUserData(loggedUser, name)
       })
       .catch((error) => {
         console.log(error);
         setError(error.message);
       });
 
-    console.log(displayName, email, password);
+    console.log(name, email, password);
   };
 
+  // Verification email method
   const sendVerificationEmail = (user) => {
     console.log("verify");
     sendEmailVerification(user)
       .then((result) => {
         console.log(result);
         alert("Please verify your email address");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const updateUserData = (user, name) => {
+    updateProfile(user, {
+      displayName: name,
+    })
+      .then(() => {
+        console.log("User update");
       })
       .catch((error) => {
         console.log(error);

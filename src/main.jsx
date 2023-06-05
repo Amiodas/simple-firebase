@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 // import App from "./App.jsx";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 // import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Main from "./layout/main.jsx";
 import Home from "./components/Home/Home.jsx";
 import Login from "./components/Login/Login.jsx";
 import Register from "./components/Register/Register.jsx";
+import ForgetPassword from "./components/ForgetPassword/ForgetPassword.jsx";
 // import Home from "./components/Home/Home.jsx";
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/forget_password",
+        element: <ForgetPassword></ForgetPassword>,
       },
     ],
   },

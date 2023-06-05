@@ -18,6 +18,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
@@ -78,12 +79,12 @@ const Login = () => {
         setError("");
       })
       .catch((error) => {
-        console.log(error);
         setError(error.message);
       });
   };
+
   return (
-    <div className="w-50 mt-3 mx-auto text-center">
+    <div className="w-50 mt-3 mx-auto text-center text-white">
       {user ? (
         <div>
           <Button variant="primary" onClick={handleSignOutBtn}>
@@ -104,7 +105,7 @@ const Login = () => {
           >
             Google Login
           </Button>
-          <Button variant="dark" onClick={handleGithubSignIn}>
+          <Button variant="outline-success" onClick={handleGithubSignIn}>
             Github Login
           </Button>
         </div>
@@ -132,14 +133,16 @@ const Login = () => {
               />
             </div>
             {success ? (
-              <p className="bg-success text-white p-2 rounded mt-4">
+              <p className="text-center mx-auto bg-success text-white p-2 rounded mt-4">
                 {success}
               </p>
             ) : (
               ""
             )}
             {error ? (
-              <p className="bg-danger text-white p-2 rounded mt-4">{error}</p>
+              <p className="text-center bg-danger text-white p-2 rounded mt-4">
+                {error}
+              </p>
             ) : (
               ""
             )}
@@ -147,7 +150,14 @@ const Login = () => {
               <Button type="submit">Sign in with email</Button>
             </div>
             <p>
-              New to this website?<Link to="/register">Please Register</Link>
+              <small>
+                <Link to="/forget_password" className="btn btn-link">
+                  Forget password?
+                </Link>
+              </small>
+            </p>
+            <p>
+              New to this website? <Link to="/register">Please Register</Link>
             </p>
           </form>
         </div>
